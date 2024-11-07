@@ -50,8 +50,8 @@ class LifeCycleHandler(object):
 
         # 初始化配置监听器
         config_event_handler = ConfigMonitor(self._conversation)
-        self._observer.schedule(config_event_handler, constants.CONFIG_PATH, False)
-        self._observer.schedule(config_event_handler, constants.DATA_PATH, False)
+        self._observer.schedule(config_event_handler, constants.CONFIG_PATH, recursive=False)
+        self._observer.schedule(config_event_handler, constants.DATA_PATH, recursive=False)
         self._observer.start()
 
         # 加载历史提醒

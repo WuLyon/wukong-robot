@@ -303,6 +303,7 @@ class Conversation(object):
         audios = []
         pattern = r"http[s]?://.+"
         logger.info("_tts")
+        logger.info(f"lines: {lines}")
         with self.tts_lock:
             with ThreadPoolExecutor(max_workers=config.get("tts_parallel", 5)) as pool:
                 all_task = []

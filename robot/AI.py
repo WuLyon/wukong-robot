@@ -8,6 +8,7 @@ from uuid import getnode as get_mac
 from abc import ABCMeta, abstractmethod
 from robot import logging, config, utils
 from robot.sdk import unit
+from volcenginesdkarkruntime import Ark
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +34,52 @@ class AbstractRobot(object):
     def stream_chat(self, texts):
         pass
 
+
+class DoubaoRobot(AbstractRobot):
+
+    SLUG = "doubao"
+
+    def __init__(self, base_url, api_key):
+        """
+        豆包
+        """
+        super(self.__class__, self).__init__()
+        self.base_url = base_url
+        self.api_key = api_key
+        try:
+            self.client = Ark(
+                base_url=self.base_url,
+                api_key=self.api_key
+            )
+        except Exception as e:
+            print(f"{e}")
+        logger.info("DouBao Robot is running successfully!")
+
+
+    @classmethod
+    def get_config(cls):
+        return config.get("doubao", {})
+    
+    def chat(self, texts, parsed=None):
+        """
+        使用豆包ai聊天
+        """
+        print("----- doubao standard request -----")
+        msg = "".join(texts)
+        msg = utils.stripPunctuation(msg)
+        completion = self.client.chat.completions.create(
+            model="ep-20241105174851-hv284",
+            messages = [
+                {"role": "system", "content": "你是豆包，是由字节跳动开发的 AI 人工智能助手"},
+                {"role": "user", "content": msg},
+            ],
+        )
+        result = completion.choices[0].message.content
+        logger.info(f"Doubao has responsed: {result}")
+        return result
+        
+        
+    
 
 class TulingRobot(AbstractRobot):
 
