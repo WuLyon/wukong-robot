@@ -17,7 +17,7 @@ from pathlib import Path
 from pypinyin import lazy_pinyin
 from pydub import AudioSegment
 from abc import ABCMeta, abstractmethod
-from .sdk import TencentSpeech, AliSpeech, XunfeiSpeech, atc, VITSClient, VolcengineSpeech
+from .sdk import TencentSpeech, AliSpeech, XunfeiSpeech, atc, VITSClient, VolcengineSpeech, tts_ws_python3_demo
 import requests
 from xml.etree import ElementTree
 
@@ -234,6 +234,9 @@ class BaiduTTS(AbstractTTS):
         if not isinstance(result, dict):
             tmpfile = utils.write_temp_file(result, ".mp3")
             logger.info(f"{self.SLUG} 语音合成成功，合成路径：{tmpfile}")
+            # logger.info(f"手动播放： {tmpfile}")
+            # subprocess.run(["aplay", tmpfile])
+            # logger.info(f"播放{tmpfile}完成")
             return tmpfile
         else:
             logger.critical(f"{self.SLUG} 合成失败！", stack_info=True)
@@ -308,8 +311,11 @@ class XunfeiTTS(AbstractTTS):
         return config.get("xunfei_yuyin", {})
 
     def get_speech(self, phrase):
-        return XunfeiSpeech.synthesize(
-            phrase, self.appid, self.api_key, self.api_secret, self.voice_name
+        # return XunfeiSpeech.synthesize(
+        #     phrase, self.appid, self.api_key, self.api_secret, self.voice_name
+        # )
+        return tts_ws_python3_demo.synthesize(
+            phrase, self.appid, self.api_key, self.api_secret
         )
 
 

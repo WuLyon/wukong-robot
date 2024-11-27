@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/home/lyon/wukong-robot')
+
 import websocket
 import hashlib
 import base64
@@ -170,4 +173,8 @@ def synthesize(msg, appid, api_key, api_secret, voice_name="xiaoyan"):
     )
     ws.on_open = tts_on_open
     ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
+    print(gTTSPath)
     return gTTSResult
+
+if __name__ == '__main__':
+    synthesize("你好", 'c1452e18', '38044e44441372ce9ca4d645757fd897', 'NjI1OWNkOGQwZTliNTIxYzg3ZjE2MzIy')
