@@ -53,7 +53,7 @@ class Wukong(object):
         )
 
         self.conversation = Conversation(self._profiling)
-        self.conversation.say(f"{config.get('first_name', '主人')} 你好！试试对我喊唤醒词叫醒我吧", True)
+        self.conversation.say(f"{config.get('first_name', '主人')} 你好！欢迎乘坐pixmoving无人驾驶小巴", True)
         self.lifeCycleHandler = LifeCycleHandler(self.conversation)
         self.lifeCycleHandler.onInit()
 
@@ -182,7 +182,7 @@ class Wukong(object):
         self.run()
 
 
-if __name__ == "__main__":
+def main():
     if len(sys.argv) == 1:
         wukong = Wukong()
         wukong.run()
@@ -191,3 +191,6 @@ if __name__ == "__main__":
         wukong.help()
     else:
         fire.Fire(Wukong)
+
+if __name__ == "__main__":
+    main()

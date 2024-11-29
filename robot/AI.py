@@ -53,8 +53,6 @@ class DoubaoRobot(AbstractRobot):
             )
         except Exception as e:
             print(f"{e}")
-        logger.info("DouBao Robot is running successfully!")
-
 
     @classmethod
     def get_config(cls):

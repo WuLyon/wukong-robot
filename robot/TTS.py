@@ -234,9 +234,6 @@ class BaiduTTS(AbstractTTS):
         if not isinstance(result, dict):
             tmpfile = utils.write_temp_file(result, ".mp3")
             logger.info(f"{self.SLUG} 语音合成成功，合成路径：{tmpfile}")
-            # logger.info(f"手动播放： {tmpfile}")
-            # subprocess.run(["aplay", tmpfile])
-            # logger.info(f"播放{tmpfile}完成")
             return tmpfile
         else:
             logger.critical(f"{self.SLUG} 合成失败！", stack_info=True)
